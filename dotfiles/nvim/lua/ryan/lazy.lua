@@ -19,6 +19,7 @@ require("lazy").setup({
   {
     -- harpoon lets you set "marks" to quickly bounce between buffers
     "ThePrimeagen/harpoon",
+    event = { "VeryLazy" },
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
@@ -38,6 +39,12 @@ require("lazy").setup({
       vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
       vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
     end,
+  },
+  {
+    -- simpler lua_ls setup
+    "folke/lazydev.nvim",
+    ft = "lua",
+    dependencies = { "neovim/nvim-lspconfig" },
   },
 }, {
   -- automatically check for plugin updates
