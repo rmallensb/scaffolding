@@ -52,3 +52,6 @@ opt.swapfile = false
 -- disable all diagnostics from displaying in the buffer.
 -- this is from https://github.com/rachartier/tiny-inline-diagnostic.nvim
 vim.diagnostic.config({ virtual_text = false })
+
+
+-- vim.g.lua_ls_config = false
