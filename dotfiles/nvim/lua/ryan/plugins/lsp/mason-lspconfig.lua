@@ -60,13 +60,13 @@ return {
 				local bufnr = args.buf
 				local keymap = vim.keymap
 
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", {
+				keymap.set("n", "gd", vim.lsp.buf.definition, {
 					noremap = true,
 					silent = true,
 					buffer = bufnr,
-					desc = "Go to declaration",
+					desc = "Go to definition",
 				})
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", {
+				keymap.set("n", "gi", vim.lsp.buf.implementation, {
 					noremap = true,
 					silent = true,
 					buffer = bufnr,
