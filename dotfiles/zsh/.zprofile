@@ -1,20 +1,11 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+#
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# enable powerlevel10k
+# enable powerlevel10k zsh theme
 # https://github.com/romkatv/powerlevel10k
-source /usr/local/share/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-source $ZSH/oh-my-zsh.sh
+alias vim="nvim"
 
 # editor
 export EDITOR=nvim
@@ -41,13 +32,13 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 # zsh auto complete plugin
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey '<Tab>' accept-line
 bindkey '\e' kill-line
 
 # zsh syntax highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zoxide is a better cd
 eval "$(zoxide init zsh)"
@@ -55,7 +46,14 @@ alias cd="z"
 
 # Eza is a better ls
 alias ls="eza --icons=always"
+alias ll="ls -la --group-directories-first"
+alias lt="ls -lDT"
 
 # Aliases
+alias dock="docker compose"
 
-alias vim="nvim"
+alias pgstage="sh ~/luminary/scripts/connect-staging"
+alias pgprod="sh ~/luminary/scripts/connect-prod"
+
+## API testing
+alias authLocal='export ACCESS_TOKEN="$("$HOME/luminary/api-testing/local/auth.sh" | jq -r .access_token)"'
