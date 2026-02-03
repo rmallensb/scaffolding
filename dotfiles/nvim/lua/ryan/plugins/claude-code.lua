@@ -4,7 +4,48 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
-		require("claude-code").setup()
+		local claude = require("claude-code")
+		local is_fullscreen = false
+
+		local split_config = {
+			window = {
+				position = "botright",
+				split_ratio = 0.25,
+			},
+		}
+
+		local float_config = {
+			window = {
+				position = "float",
+				float = {
+					width = "95%",
+					height = "95%",
+					row = "center",
+					col = "center",
+					border = "rounded",
+				},
+			},
+		}
+
+		-- Start with split config
+		claude.setup(split_config)
+
+		-- Toggle between split and fullscreen float
+		local function toggle_fullscreen()
+			is_fullscreen = not is_fullscreen
+			-- Close current window
+			claude.toggle()
+			-- Reconfigure
+			claude.setup(is_fullscreen and float_config or split_config)
+			-- Reopen with new config
+			claude.toggle()
+			-- Re-enter terminal mode after window settles
+			vim.defer_fn(function()
+				vim.cmd("startinsert")
+			end, 50)
+		end
+
+		vim.keymap.set({ "n", "t" }, "<leader>cf", toggle_fullscreen, { desc = "Toggle Claude fullscreen" })
 
 		-- Send visual selection to Claude Code
 		local function send_to_claude()
