@@ -23,8 +23,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
   defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 fi
 
-# GPG agent for SSH auth (local only — skip when SSH agent is forwarded)
-if [[ -z "$SSH_AUTH_SOCK" ]]; then
+# GPG agent for SSH auth (macOS only — on Linux devboxes, use forwarded agent)
+# NOTE: hardcoded to macOS because WezTerm sets SSH_AUTH_SOCK to its own empty
+# agent, so we need to unconditionally override it with the GPG agent locally.
+# If we ever need GPG agent on a Linux host, revisit this condition.
+if [[ "$(uname)" == "Darwin" ]]; then
   export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   gpgconf --launch gpg-agent
 fi
