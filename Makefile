@@ -5,12 +5,12 @@
 
 DOTFILES := $(PWD)/dotfiles
 
-.PHONY: setup install uninstall nvim wezterm pgcli zsh
+.PHONY: setup install uninstall nvim wezterm pgcli zsh tmux
 
 setup:
 	@./setup.sh
 
-install: nvim wezterm pgcli zsh
+install: nvim wezterm pgcli zsh tmux
 	@echo "All dotfiles symlinked!"
 
 uninstall:
@@ -18,6 +18,7 @@ uninstall:
 	rm -f ~/.config/nvim
 	rm -f ~/.config/wezterm
 	rm -f ~/.config/pgcli
+	rm -f ~/.config/tmux
 	rm -f ~/.zshrc
 	rm -f ~/.zprofile
 	@echo "Symlinks removed. Original configs are still in this repo."
@@ -48,6 +49,15 @@ pgcli:
 	fi
 	rm -f ~/.config/pgcli
 	ln -s $(DOTFILES)/pgcli ~/.config/pgcli
+
+tmux:
+	@echo "Linking tmux..."
+	@if [ -e ~/.config/tmux ] && [ ! -L ~/.config/tmux ]; then \
+		echo "Error: ~/.config/tmux exists and is not a symlink. Back it up first."; \
+		exit 1; \
+	fi
+	rm -f ~/.config/tmux
+	ln -s $(DOTFILES)/tmux ~/.config/tmux
 
 zsh:
 	@echo "Linking zsh..."

@@ -39,6 +39,7 @@ install_packages() {
 
   local packages=(
     neovim
+    tmux
     ripgrep
     fd
     eza
@@ -148,7 +149,7 @@ install_linux_prereqs() {
 # ---------- Symlinks ----------
 
 backup_existing() {
-  local files=(~/.zshrc ~/.zprofile ~/.config/nvim ~/.config/wezterm ~/.config/pgcli)
+  local files=(~/.zshrc ~/.zprofile ~/.config/nvim ~/.config/wezterm ~/.config/pgcli ~/.config/tmux)
   for f in "${files[@]}"; do
     if [[ -e "$f" && ! -L "$f" ]]; then
       info "Backing up $f to ${f}.bak"

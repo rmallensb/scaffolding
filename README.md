@@ -15,7 +15,7 @@ make setup
 ## What Gets Installed
 
 **Via Homebrew:**
-neovim, ripgrep, fd, eza, zoxide, fzf, zsh-autosuggestions, zsh-syntax-highlighting, powerlevel10k
+neovim, tmux, ripgrep, fd, eza, zoxide, fzf, zsh-autosuggestions, zsh-syntax-highlighting, powerlevel10k
 
 **Via install scripts:**
 Oh My Zsh, zsh-vi-mode plugin
@@ -27,6 +27,7 @@ Oh My Zsh, zsh-vi-mode plugin
 | `dotfiles/nvim/` | `~/.config/nvim` |
 | `dotfiles/wezterm/` | `~/.config/wezterm` |
 | `dotfiles/pgcli/` | `~/.config/pgcli` |
+| `dotfiles/tmux/` | `~/.config/tmux` |
 | `dotfiles/zsh/.zshrc` | `~/.zshrc` |
 | `dotfiles/zsh/.zprofile` | `~/.zprofile` |
 
@@ -41,6 +42,7 @@ Oh My Zsh, zsh-vi-mode plugin
 | `make zsh` | Symlink zsh only |
 | `make wezterm` | Symlink wezterm only |
 | `make pgcli` | Symlink pgcli only |
+| `make tmux` | Symlink tmux only |
 
 ## Structure
 
@@ -49,6 +51,7 @@ dotfiles/
   nvim/         # Neovim config (lazy.nvim, LSP, telescope, etc.)
   zsh/          # .zshrc + .zprofile (oh-my-zsh, p10k, vim mode)
   wezterm/      # WezTerm terminal config
+  tmux/         # tmux config (Ctrl-Space prefix, vim nav)
   pgcli/        # PostgreSQL CLI config
 scripts/
   load-secrets.sh
