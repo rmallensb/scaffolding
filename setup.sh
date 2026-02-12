@@ -84,10 +84,7 @@ set_default_shell() {
     return
   fi
 
-  local zsh_path
-  zsh_path="$(which zsh)"
-
-  # On Linux, zsh may not be installed yet
+  # Install zsh if not present
   if ! command -v zsh &>/dev/null; then
     if [[ "$OS" == "Linux" ]]; then
       info "Installing zsh..."
@@ -101,9 +98,11 @@ set_default_shell() {
         warn "Could not install zsh automatically. Please install it manually."
         return
       fi
-      zsh_path="$(which zsh)"
     fi
   fi
+
+  local zsh_path
+  zsh_path="$(which zsh)"
 
   # Add to /etc/shells if missing
   if ! grep -qx "$zsh_path" /etc/shells; then
@@ -157,9 +156,9 @@ main() {
     install_linux_prereqs
   fi
 
-  set_default_shell
   install_homebrew
   install_packages
+  set_default_shell
   install_oh_my_zsh
   install_zsh_plugins
   create_symlinks
