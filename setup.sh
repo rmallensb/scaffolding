@@ -135,9 +135,20 @@ install_linux_prereqs() {
 
 # ---------- Symlinks ----------
 
+backup_existing() {
+  local files=(~/.zshrc ~/.zprofile ~/.config/nvim ~/.config/wezterm ~/.config/pgcli)
+  for f in "${files[@]}"; do
+    if [[ -e "$f" && ! -L "$f" ]]; then
+      info "Backing up $f to ${f}.bak"
+      mv "$f" "${f}.bak"
+    fi
+  done
+}
+
 create_symlinks() {
   info "Creating config symlinks..."
   mkdir -p ~/.config
+  backup_existing
   make -C "$(cd "$(dirname "$0")" && pwd)" install
 }
 
