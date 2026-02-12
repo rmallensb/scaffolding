@@ -1,1 +1,3 @@
 .env
+dotfiles/pgcli/history
+dotfiles/pgcli/log

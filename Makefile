@@ -1,10 +1,14 @@
 # Dotfiles Management
+# Run `make setup` to install deps + symlink configs
 # Run `make install` to symlink all configs
 # Run `make uninstall` to remove symlinks
 
 DOTFILES := $(PWD)/dotfiles
 
-.PHONY: install uninstall nvim wezterm pgcli zsh
+.PHONY: setup install uninstall nvim wezterm pgcli zsh
+
+setup:
+	@./setup.sh
 
 install: nvim wezterm pgcli zsh
 	@echo "All dotfiles symlinked!"

@@ -1,18 +1,27 @@
-#
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# Homebrew — detect platform
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+BREW_PREFIX="$(brew --prefix 2>/dev/null || true)"
 
 # enable powerlevel10k zsh theme
 # https://github.com/romkatv/powerlevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f "$BREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme" ]] && \
+  source "$BREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme"
 
 alias vim="nvim"
 
 # editor
 export EDITOR=nvim
 
-# key repeat
-defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
-defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+# key repeat (macOS only)
+if [[ "$(uname)" == "Darwin" ]]; then
+  defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+  defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+fi
 
 # inform SSH how to speak with GPG
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -32,13 +41,15 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
 # zsh auto complete plugin
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 bindkey '<Tab>' accept-line
 bindkey '\e' kill-line
 
 # zsh syntax highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+  source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # zoxide is a better cd
 eval "$(zoxide init zsh)"
