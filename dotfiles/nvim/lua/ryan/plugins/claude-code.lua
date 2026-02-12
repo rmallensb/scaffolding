@@ -72,5 +72,9 @@ return {
 		end
 
 		vim.keymap.set("v", "<leader>cs", send_to_claude, { desc = "Send selection to Claude" })
+
+		-- Terminal scroll keybindings (exit to normal mode + scroll, press i to resume input)
+		vim.keymap.set("t", "<C-u>", [[<C-\><C-n><C-u>]], { desc = "Scroll up in terminal" })
+		vim.keymap.set("t", "<C-d>", [[<C-\><C-n><C-d>]], { desc = "Scroll down in terminal" })
 	end,
 }
