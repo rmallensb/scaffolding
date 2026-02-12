@@ -112,6 +112,18 @@ set_default_shell() {
 
   info "Setting zsh as default shell..."
   chsh -s "$zsh_path"
+
+  # Fallback for environments where chsh doesn't persist (containers, devboxes)
+  if [[ -f "$HOME/.bashrc" ]] && ! grep -q 'exec zsh' "$HOME/.bashrc"; then
+    info "Adding zsh fallback to .bashrc..."
+    cat >> "$HOME/.bashrc" <<'BASH'
+
+# Switch to zsh if available
+if command -v zsh &>/dev/null; then
+  exec zsh
+fi
+BASH
+  fi
 }
 
 # ---------- Linux prerequisites ----------
