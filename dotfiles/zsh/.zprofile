@@ -23,9 +23,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
   defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 fi
 
-# inform SSH how to speak with GPG
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpgconf --launch gpg-agent
+# GPG agent for SSH auth (local only — skip when SSH agent is forwarded)
+if [[ -z "$SSH_AUTH_SOCK" ]]; then
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpgconf --launch gpg-agent
+fi
 
 # history setup
 HISTFILE=$HOME/.zhistory
