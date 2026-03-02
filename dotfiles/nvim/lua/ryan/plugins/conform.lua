@@ -20,10 +20,11 @@ return {
   ---@module "conform"
   ---@type conform.setupOpts
   opts = {
+    notify_on_error = false,
     -- Define your formatters
     formatters_by_ft = {
       lua = { "stylua" },
-      go = { "gofumpt" },
+      go = { "goimports", "gofmt" },
       json = { "jq" },
       sql = { "pg_format" },
       md = { "markdownfmt" },
@@ -39,10 +40,24 @@ return {
       lsp_format = "fallback",
     },
     -- Set up format-on-save
-    format_on_save = {
-      timeout_ms = 500,
-      lsp_fallback = true,
-    },
+    format_on_save = function(bufnr)
+      if vim.bo[bufnr].filetype == "go" then
+        local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "go")
+        if ok and parser then
+          local trees = parser:parse()
+          for _, tree in ipairs(trees) do
+            if tree:root():has_error() then
+              return nil
+            end
+          end
+        end
+      end
+
+      return {
+        timeout_ms = 500,
+        lsp_format = "fallback",
+      }
+    end,
     -- Customize formatters
     -- formatters = {
     -- 	shfmt = {
