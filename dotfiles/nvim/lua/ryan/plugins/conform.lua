@@ -1,6 +1,6 @@
 return {
   "stevearc/conform.nvim",
-  event = { "BufWritePre" },
+  event = { "BufReadPre", "BufNewFile" },
   cmd = { "ConformInfo" },
   keys = {
     {
@@ -57,16 +57,6 @@ return {
         for _, line in ipairs(lines) do
           if line:match("^<<<<<<<") or line:match("^=======") or line:match("^>>>>>>>") then
             return nil
-          end
-        end
-
-        local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "go")
-        if ok and parser then
-          local trees = parser:parse()
-          for _, tree in ipairs(trees) do
-            if tree:root():has_error() then
-              return nil
-            end
           end
         end
       end
