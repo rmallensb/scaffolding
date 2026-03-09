@@ -7,10 +7,21 @@ return {
       -- Customize or remove this keymap to your liking
       "<leader>f",
       function()
-        require("conform").format({ async = true })
-        vim.notify("formated successfully", "info", {
-          title = "Conform Finished",
-        })
+        require("conform").format({
+          async = true,
+          lsp_format = "fallback",
+        }, function(err)
+          if err then
+            vim.notify(err, vim.log.levels.ERROR, {
+              title = "Conform Failed",
+            })
+            return
+          end
+
+          vim.notify("Formatted successfully", vim.log.levels.INFO, {
+            title = "Conform Finished",
+          })
+        end)
       end,
       mode = "",
       desc = "Format buffer",
@@ -42,6 +53,13 @@ return {
     -- Set up format-on-save
     format_on_save = function(bufnr)
       if vim.bo[bufnr].filetype == "go" then
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+        for _, line in ipairs(lines) do
+          if line:match("^<<<<<<<") or line:match("^=======") or line:match("^>>>>>>>") then
+            return nil
+          end
+        end
+
         local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "go")
         if ok and parser then
           local trees = parser:parse()
@@ -54,7 +72,7 @@ return {
       end
 
       return {
-        timeout_ms = 500,
+        timeout_ms = vim.bo[bufnr].filetype == "go" and 3000 or 500,
         lsp_format = "fallback",
       }
     end,
