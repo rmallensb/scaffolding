@@ -18,7 +18,6 @@ return {
 
     telescope.setup({
       defaults = {
-        debug = true,
         path_display = { "smart" },
         mappings = {
           i = {

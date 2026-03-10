@@ -72,7 +72,7 @@ return {
 					buffer = bufnr,
 					desc = "Go to implementation",
 				})
-				keymap.set("n", "<leader>H", vim.lsp.buf.hover, {
+				keymap.set("n", "K", vim.lsp.buf.hover, {
 					noremap = true,
 					silent = true,
 					buffer = bufnr,

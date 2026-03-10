@@ -49,6 +49,12 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 opt.swapfile = false
 
+-- keep undo history across sessions
+opt.undofile = true
+local undodir = vim.fn.stdpath("state") .. "/undo"
+vim.fn.mkdir(undodir, "p")
+opt.undodir = undodir
+
 -- disable all diagnostics from displaying in the buffer.
 -- this is from https://github.com/rachartier/tiny-inline-diagnostic.nvim
 vim.diagnostic.config({ virtual_text = false })

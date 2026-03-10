@@ -38,6 +38,7 @@ return {
       go = { "goimports", "gofmt" },
       json = { "jq" },
       sql = { "pg_format" },
+      markdown = { "markdownfmt" },
       md = { "markdownfmt" },
       yaml = { "yamlfmt" },
       yml = { "yamlfmt" },
