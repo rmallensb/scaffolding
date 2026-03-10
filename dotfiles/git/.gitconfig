@@ -1,0 +1,31 @@
+# This is Git's per-user configuration file.
+[user]
+  name = Ryan Allen
+  email = rmallensb@gmail.com
+  username = rmallensb
+[init]
+  defaultBranch = main
+[commit]
+	gpgsign = true
+[core]
+  editor = nvim
+  pager = delta
+  whitespace = tabwidth=2
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true # use n and N to move between diff sections
+  side-by-side = true
+[alias]
+  d = branch -D
+  ###
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
+  ###
+  rb = rebase --interactive
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbs = rebase --skip
+  ###
+  pfl = push --force-with-lease

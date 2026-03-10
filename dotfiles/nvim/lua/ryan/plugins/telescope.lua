@@ -13,12 +13,17 @@ return {
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
+    local has_ts_parsers, ts_parsers = pcall(require, "nvim-treesitter.parsers")
 
     local additional_rg_args = { "--hidden", "--glob", "!**/.git/*", "--glob", "!**/node_modules/*" }
+    local preview_treesitter = has_ts_parsers and type(ts_parsers.ft_to_lang) == "function"
 
     telescope.setup({
       defaults = {
         path_display = { "smart" },
+        preview = {
+          treesitter = preview_treesitter,
+        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result

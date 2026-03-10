@@ -28,6 +28,7 @@ Oh My Zsh, zsh-vi-mode plugin
 | `dotfiles/wezterm/` | `~/.config/wezterm` |
 | `dotfiles/pgcli/` | `~/.config/pgcli` |
 | `dotfiles/tmux/` | `~/.config/tmux` |
+| `dotfiles/git/.gitconfig` | `~/.gitconfig` |
 | `dotfiles/zsh/.zshrc` | `~/.zshrc` |
 | `dotfiles/zsh/.zprofile` | `~/.zprofile` |
 
@@ -38,6 +39,7 @@ Oh My Zsh, zsh-vi-mode plugin
 | `make setup` | Full bootstrap (deps + symlinks) |
 | `make install` | Symlink all configs |
 | `make uninstall` | Remove all symlinks |
+| `make gitconfig` | Symlink gitconfig only |
 | `make nvim` | Symlink nvim only |
 | `make zsh` | Symlink zsh only |
 | `make wezterm` | Symlink wezterm only |
@@ -48,6 +50,7 @@ Oh My Zsh, zsh-vi-mode plugin
 
 ```
 dotfiles/
+  git/          # ~/.gitconfig
   nvim/         # Neovim config (lazy.nvim, LSP, telescope, etc.)
   zsh/          # .zshrc + .zprofile (oh-my-zsh, p10k, vim mode)
   wezterm/      # WezTerm terminal config

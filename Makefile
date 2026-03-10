@@ -5,12 +5,12 @@
 
 DOTFILES := $(PWD)/dotfiles
 
-.PHONY: setup install uninstall nvim wezterm pgcli zsh tmux
+.PHONY: setup install uninstall gitconfig nvim wezterm pgcli zsh tmux
 
 setup:
 	@./setup.sh
 
-install: nvim wezterm pgcli zsh tmux
+install: gitconfig nvim wezterm pgcli zsh tmux
 	@echo "All dotfiles symlinked!"
 
 uninstall:
@@ -19,9 +19,19 @@ uninstall:
 	rm -f ~/.config/wezterm
 	rm -f ~/.config/pgcli
 	rm -f ~/.config/tmux
+	rm -f ~/.gitconfig
 	rm -f ~/.zshrc
 	rm -f ~/.zprofile
 	@echo "Symlinks removed. Original configs are still in this repo."
+
+gitconfig:
+	@echo "Linking gitconfig..."
+	@if [ -e ~/.gitconfig ] && [ ! -L ~/.gitconfig ]; then \
+		echo "Error: ~/.gitconfig exists and is not a symlink. Back it up first."; \
+		exit 1; \
+	fi
+	rm -f ~/.gitconfig
+	ln -s $(DOTFILES)/git/.gitconfig ~/.gitconfig
 
 nvim:
 	@echo "Linking nvim..."
