@@ -6,6 +6,7 @@ return {
 		"windwp/nvim-ts-autotag",
 	},
 	config = function()
+		require("nvim-treesitter.install").prefer_git = true
 		local treesitter = require("nvim-treesitter.configs")
 
 		---@diagnostic disable-next-line: missing-fields

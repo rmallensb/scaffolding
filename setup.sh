@@ -40,6 +40,7 @@ install_packages() {
   local packages=(
     neovim
     tmux
+    deno
     ripgrep
     fd
     eza

@@ -15,7 +15,7 @@ make setup
 ## What Gets Installed
 
 **Via Homebrew:**
-neovim, tmux, ripgrep, fd, eza, zoxide, fzf, zsh-autosuggestions, zsh-syntax-highlighting, powerlevel10k
+neovim, tmux, deno, ripgrep, fd, eza, zoxide, fzf, zsh-autosuggestions, zsh-syntax-highlighting, powerlevel10k
 
 **Via install scripts:**
 Oh My Zsh, zsh-vi-mode plugin
