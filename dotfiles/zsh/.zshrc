@@ -14,6 +14,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # add local bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
+# Keep tmux sockets out of /tmp. tmux will create its server socket here.
+export TMUX_TMPDIR="${XDG_CONFIG_HOME:-$HOME/.config}/tmux/runtime"
+mkdir -p "$TMUX_TMPDIR"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
