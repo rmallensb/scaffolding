@@ -6,8 +6,21 @@ return {
 		"windwp/nvim-ts-autotag",
 	},
 	config = function()
-		require("nvim-treesitter.install").prefer_git = true
-		local treesitter = require("nvim-treesitter.configs")
+		local ok_install, install = pcall(require, "nvim-treesitter.install")
+		local ok_configs, treesitter = pcall(require, "nvim-treesitter.configs")
+
+		if not ok_install or not ok_configs then
+			vim.schedule(function()
+				vim.notify(
+					"nvim-treesitter is unavailable; run :Lazy sync and restart Neovim",
+					vim.log.levels.WARN,
+					{ title = "Treesitter" }
+				)
+			end)
+			return
+		end
+
+		install.prefer_git = true
 
 		---@diagnostic disable-next-line: missing-fields
 		treesitter.setup({
