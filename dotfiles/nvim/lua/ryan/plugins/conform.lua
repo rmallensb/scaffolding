@@ -31,6 +31,18 @@ return {
   ---@module "conform"
   ---@type conform.setupOpts
   opts = {
+    formatters = {
+      goimports = {
+        command = function()
+          local mason_goimports = vim.fn.stdpath("data") .. "/mason/bin/goimports"
+          if vim.fn.executable(mason_goimports) == 1 then
+            return mason_goimports
+          end
+
+          return "goimports"
+        end,
+      },
+    },
     notify_on_error = false,
     -- Define your formatters
     formatters_by_ft = {
@@ -63,7 +75,7 @@ return {
       end
 
       return {
-        timeout_ms = vim.bo[bufnr].filetype == "go" and 3000 or 500,
+        timeout_ms = vim.bo[bufnr].filetype == "go" and 2000 or 500,
         lsp_format = "fallback",
       }
     end,
